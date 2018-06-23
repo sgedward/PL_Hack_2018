@@ -1,4 +1,5 @@
 from survey import Survey
+from question import Question
 
 class Collector:
     def __init__(self,phone,name):
@@ -12,7 +13,7 @@ class Collector:
 
 
     def create_Survey(self,name):
-        self.cur=Survey(name,intro)
+        self.cur=Survey(name)
         if self.cur is None:
             return -1
         return 1
@@ -24,7 +25,7 @@ class Collector:
     def process_response(self,input):
         if self.cur_question is None:
             self.cur_question=Question()
-            self.add_description(input)
+            self.cur_question.add_description(input)
             return 1
         elif self.cur_question.get_type() is None:
             self.cur_question.set_type(input)
@@ -46,7 +47,6 @@ class Collector:
     def end_choice(self):
         self.cur.add_question(self.cur_question)
         self.cur_question=None
-
 
     def end_survey(self):
         self.survey_list[self.cur.get_name()]=self.cur

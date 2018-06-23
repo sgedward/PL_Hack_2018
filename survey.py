@@ -1,13 +1,15 @@
+from question import Question
+
 class Survey:
 
     def __init__(self,name):
         self.name=name
         self.question_list=[]
-        self.is_closed=False
+        self.closed=False
         self.description=None
         self.ans_index=0
 
-    def get_name():
+    def get_name(self):
         return self.name
 
     def add_description(self,description):
@@ -21,7 +23,13 @@ class Survey:
             if self.question_list[self.ans_index].set_ans(ans):
                     self.ans_index+=1
             if self.ans_index == len(self.question_list):
-                   self.is_closed=True
+                   self.closed=True
 
     def is_closed(self):
-        return self.is_closed
+        return self.closed
+
+    def get_next_question(self):
+        return self.question_list[self.ans_index]
+    
+    def get_question_list(self):
+        return self.question_list

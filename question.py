@@ -28,5 +28,11 @@ class Question:
     def set_type(self,type):
         self.type=type
 
-    def get_type(self,type):
+    def get_type(self):
         return self.type
+
+    def get_description(self):
+        return self.description
+    
+    def get_choice_string(self):
+        return "\n".join([str(index + 1) + ") " + str(x) for index, x in enumerate(self.choice)])
