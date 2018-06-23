@@ -75,7 +75,7 @@ class Controller:
 
         elif keyword == "SEND":
             if len(temp_input) > 2:
-                for number in collector.send(temp_input[2:]):
+                for number in collector.send(temp_input[3:]):
                     if number in self.volunteers:
                         self.volunteers[number].add_survey(collector.get_survey(temp_input[1]))
                 return "Survery sent"
