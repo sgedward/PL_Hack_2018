@@ -31,7 +31,7 @@ class Controller:
         print keyword
 
         if keyword == "EDQ":
-            collector.close_survey()
+            collector.end_survey()
             return "Survey completion finished."
         elif keyword == "EDC":
             collector.end_choice()
