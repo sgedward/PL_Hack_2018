@@ -6,7 +6,7 @@ class Controller:
 
     def __init__(self):
         self.volunteers = dict()
-        self.collectors = dict("+18587749238", Collector("+18587749238", "Henry"))
+        self.collectors = {"+18587749238", Collector("+18587749238", "Henry")}
 
     def parser(self, phone, input):
         phone = str(phone)
