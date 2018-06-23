@@ -6,11 +6,12 @@ class Controller:
 
     def __init__(self):
         self.volunteers = dict()
-        self.collectors = {"+18587749238", Collector("+18587749238", "Henry")}
+        self.collectors = {"+18587749238": Collector("+18587749238", "Henry")}
 
     def parser(self, phone, input):
         phone = str(phone)
         input = input.strip()
+        print input
         if phone in self.volunteers:
             return self.volunteer_parser(self.volunteers[phone],input)
         elif phone in self.collectors:
@@ -21,24 +22,25 @@ class Controller:
 
     def volunteer_parser(self, volunteer, input):
         return volunteer.process_response(input)
-        
+
 
     def collector_parser(self, collector, input):
-        
+
         temp_input = input.split()
         keyword = temp_input[0]
-        
-        if keyword is "EDQ":
+        print keyword
+
+        if keyword == "EDQ":
             collector.close_survey()
             return "Survey completion finished."
-        elif keyword is "EDC":
+        elif keyword == "EDC":
             collector.end_choice()
             return "Enter new question or send EDQ to end survery creation."
-        elif keyword is "CREATE":
+        elif keyword == "CREATE":
             if len(temp_input) > 1:
-                collector.create(' '.join(temp_input[1:]))
-                return "Survey creation started."
-        elif keyword is "CTL":
+                collector.create_Survey(' '.join(temp_input[1:]))
+                return "Survey creation started. Enter first question:\n"
+        elif keyword == "CTL":
             if len(temp_input) > 1:
                 numbers = temp_input[1:]
                 for number in numbers:
@@ -47,7 +49,7 @@ class Controller:
                         self.volunteers[number] = volunteer
                 collector.add_contact_list(' '.join(numbers))
                 return "Contact group generated."
-        elif keyword is "CHECK":
+        elif keyword == "CHECK":
             if len(temp_input) > 1:
                 data = ''.join(temp_input).split(',')
                 if len(data) > 1:
@@ -62,7 +64,7 @@ class Controller:
                             if str(question.ans) in dictionary:
                                 if question.get_type() is "str":
                                     dictionary[str(question.ans)] += [1]
-                                elif question.get_type() is "num": 
+                                elif question.get_type() is "num":
                                     dictionary[str(question.ans)] += [question.ans]
                     for k in dictionary:
                         if survey_function is "AVG":
@@ -71,7 +73,7 @@ class Controller:
                             dictionary[k] = sum(dictionary[k])
                     return str(dictionary)
 
-        elif keyword is "SEND":
+        elif keyword == "SEND":
             if len(temp_input) > 2:
                 for number in collector.send(temp_input[2:]):
                     if number in self.volunteers:
@@ -82,9 +84,3 @@ class Controller:
                 return "Enter answer type: "
             else:
                 return "Enter answer choice text: "
-
-        
-
-
-    
-        

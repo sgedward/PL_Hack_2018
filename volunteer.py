@@ -1,4 +1,4 @@
-import copy 
+import copy
 from send import send
 from survey import Survey
 from question import Question
@@ -13,7 +13,7 @@ class Background:
         return " ".join([self.name, self.location, " ".join(self.extra_info)])
 
 class Volunteer:
-    
+
     def __init__(self, phone):
         self.phone = phone
         self.request_background()
@@ -26,11 +26,11 @@ class Volunteer:
 
     def add_survey(self, survey):
         send("You have a new survey:\n" + survey.get_name() + "\n" + survey.get_description() + "\n" \
-        + self.survey_list[-1].get_next_question().get_description() + "\n" \ 
+        + self.survey_list[-1].get_next_question().get_description() + "\n" \
         + self.survey_list[-1].get_next_question().get_choice_string(), self.phone)
         if not self.is_busy():
             self.survey_list.append(copy.deepcopy(survey))
-        
+
 
     def is_busy(self):
         return len(self.survey_list) > 0 and not self.survey_list[-1].isClosed()
@@ -57,10 +57,3 @@ class Volunteer:
 
     def __str__(self):
         return " ".join(["Phone:", self.phone, str(self.background), "Surveys:", self.survey_list])
-
-
-    
-    
-
-
-        
